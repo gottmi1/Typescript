@@ -1,3 +1,6 @@
+npx install -g typescript
+해당 디렉토리에 타입스크립트를 설치
+
 npx tsc 이름.ts
 
 ts파일과 같은 내용을 담은 js파일을 만듬
@@ -9,3 +12,7 @@ js파일이 만들어진 후 ts의 오류를 없애줌
 npx tsc -w
 
 ts파일의 바뀐 내용을 js파일에 업데이트함
+
+
+타입 추론
+
