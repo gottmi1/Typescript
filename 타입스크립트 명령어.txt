@@ -1,4 +1,13 @@
-npx install -g typescript
+npm이란?
+자바스크립트의 런타임 환경 Node.js의 기본 패키지 관리자(node package manager)
+자바스크립트 환경에서 프로젝트를 시작할 때 node와 함께 설치하라는 Getting Started가 많고, 사용빈도가 높다.
+
+npx란?
+npx는 execute npm package binaries의 줄임말. npm에 속해있는 npm패키지를 실행하는 도구이다.
+npm과 다른 점은 단순히 패키지 실행 도구라는 점.
+
+
+npm install -g typescript
 해당 디렉토리에 타입스크립트를 설치
 
 npx tsc 이름.ts
