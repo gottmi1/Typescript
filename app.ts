@@ -49,17 +49,6 @@ let courseCompleted:boolean = false;
 
 // 타입이 한 번 정해진 변수는 항상 같은 타입을 가져야함.
 
-let student1: Student = {
-  studentId: 12345,
-  studentName: "jinwon",
-  // age: 27,  // interface에서 선택적 프로퍼티를 적용해서 age가 없어도 오류가 뜨지 않음 -------------------------------
-  gender: "male",
-  courseCompleted: false,
-}
-
-// 인터페이스
-// 코드가 컴파일될 때 아무런 영향력이 없기때문에 타입스크립트 컴파일러가 js로 컴파일 할때 인터페이스 코드는 그냥 지워버림
-// 즉 인터페이스는 작성중인 코드에대한 더 많은 정보를 타입스크립트에게 제공하기위해 존재
 
 interface Student{
   readonly studentId:Number; // readonly = 읽기 전용 프로퍼티로 설정
@@ -76,6 +65,18 @@ interface Student{
   addComment?: (Comment:string) => string;
   // 위 두가지는 같은 일을 함. 두가지 표현식이 있을 뿐이다.
 }
+// 인터페이스
+// 코드가 컴파일될 때 아무런 영향력이 없기때문에 타입스크립트 컴파일러가 js로 컴파일 할때 인터페이스 코드는 그냥 지워버림(그래서 js파일엔 없음)
+// 즉 인터페이스는 작성중인 코드에대한 더 많은 정보를 타입스크립트에게 제공하기 위해서만 존재
+
+let student1: Student = {
+  studentId: 12345,
+  studentName: "jinwon",
+  // age: 27,  // interface에서 선택적 프로퍼티를 적용해서 age가 없어도 오류가 뜨지 않음 -------------------------------
+  gender: "male",
+  courseCompleted: false,
+}
+
 
 function getStudent(studentId:number):Student{ // 반환될 값은 interface Student와 같은 값을 가져야만 함
   return {
@@ -93,4 +94,68 @@ function saveStudent(Student:Student):void { // 아무것도 반환하지 않기
 }
 
 saveStudent(student1);
+
+// let something:any;
+// // any 타입 : 뭐든지 들어가도 됨
+// // 문자열을 할당하든, 불린값을 할당하든 상관없음.
+// // 타입스크립트는 타입 명시를 하는 게 좋음. any는 자주 사용하지 않는 게 좋다
+
+// let something2: number | string;
+// // 유니언타입, number,string 다 허용한다는 뜻
+// let price: number | string | boolean;
+// price = false;
+
+function TypeAliases(name:string):void { // TypeAliases를 보기 편하게 정리하기 위한 블럭
+  
+  // let totalCost: number;
+  // let orderId: number | string;
+
+  // const calculateTotalCost = (price : number | string,qty:number):void => { // 함수에서 void는 아무것도 반환하지 않을 때 명시해줘야 함.
+
+  // };
+
+  // const findOderId = (customer: { customerId: number | string, 
+  // name: string}, productId: number | string) : number | string => {
+  //   return orderId;
+  // }
+  // 위와 같은 코드가 있을 때, number | string은 상당히 많이 중복된다.
+  // 이 경우 똑같은 코드를 반복해서 쓰는 것 보다는 이러한 조합 자체를 타입으로 지정하고 코드를 재활용 할 수 있게해야 한다.
+  // 이럴 때 쓰는 게 Type Aliases이다. 아래와 같이 쓸 수 있음.
+
+  type strOrNum = number | string;
+  // 이렇게 타입의 조합자체에 변수를 할당하면
+  let totalCost: number;
+  let orderId: strOrNum;
+
+  const calculateTotalCost = (price : strOrNum,qty:number):void => { // 함수에서 void는 아무것도 반환하지 않을 때 명시해줘야 함.
+
+  };
+
+  const findOderId = (customer: { customerId: strOrNum, 
+  name: string}, productId: strOrNum) :strOrNum => {
+    return orderId;
+  }
+  // 일케 보기 쉽게 가능함
+};
+
+function TypeGuard(value:number):void{
+
+  type StrOrNum = string | number;
+  let itemPrice: number;
+
+  const setItemPrice = (price:StrOrNum): void => { // TypeGuard를 보기 편하게 정리하기 위한 블럭
+    // itemPrice = price;
+    // 달랑 이것만 써놓으면 itemPrice에 에러가 뜨는데, price 매개변수가 number가 될 수도 있고, string이 될 수도 있기 떄문이다.
+    // 이럴 때 js의 내장 함수인 type fo Operator를 사용한다. typeof와 조건문을 함께 사용함으로써 문제가 되는 코드를 아래와 같이 고칠 수 있다.
+    if (typeof price === 'string') { // price가 string타입일 경우
+      itemPrice = 0;
+    } else {
+      itemPrice = price;
+    }
+
+    // 유니언타입을 사용할 때, typeof를 사용하여 코드 검증을 실행하는 것, 이것을 타입스크립트에서 타입가드라고 한다.
+  };
+  setItemPrice(50);
+}
+
 

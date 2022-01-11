@@ -34,7 +34,9 @@ let studentName = "jinwon";
 let age = 27;
 let gender = "male";
 let courseCompleted = false;
-// 타입이 한 번 정해진 변수는 항상 같은 타입을 가져야함.
+// 인터페이스
+// 코드가 컴파일될 때 아무런 영향력이 없기때문에 타입스크립트 컴파일러가 js로 컴파일 할때 인터페이스 코드는 그냥 지워버림(그래서 js파일엔 없음)
+// 즉 인터페이스는 작성중인 코드에대한 더 많은 정보를 타입스크립트에게 제공하기 위해서만 존재
 let student1 = {
     studentId: 12345,
     studentName: "jinwon",
@@ -56,3 +58,41 @@ function saveStudent(Student) {
     // Student.studentId = 11222; // 읽기 전용 프로퍼티이기 떄문에 읽을수만 있고 새로운 값이 할당될 수 없다
 }
 saveStudent(student1);
+// let something:any;
+// // any 타입 : 뭐든지 들어가도 됨
+// // 문자열을 할당하든, 불린값을 할당하든 상관없음.
+// // 타입스크립트는 타입 명시를 하는 게 좋음. any는 자주 사용하지 않는 게 좋다
+// let something2: number | string;
+// // 유니언타입, number,string 다 허용한다는 뜻
+// let price: number | string | boolean;
+// price = false;
+function TypeAliases(name) {
+    // let totalCost: number;
+    // let orderId: number | string;
+    // 이렇게 타입의 조합자체에 변수를 할당하면
+    let totalCost;
+    let orderId;
+    const calculateTotalCost = (price, qty) => {
+    };
+    const findOderId = (customer, productId) => {
+        return orderId;
+    };
+    // 일케 보기 쉽게 가능함
+}
+;
+function TypeGuard(value) {
+    let itemPrice;
+    const setItemPrice = (price) => {
+        // itemPrice = price;
+        // 달랑 이것만 써놓으면 itemPrice에 에러가 뜨는데, price 매개변수가 number가 될 수도 있고, string이 될 수도 있기 떄문이다.
+        // 이럴 때 js의 내장 함수인 type fo Operator를 사용한다. typeof와 조건문을 함께 사용함으로써 문제가 되는 코드를 아래와 같이 고칠 수 있다.
+        if (typeof price === 'string') { // price가 string타입일 경우
+            itemPrice = 0;
+        }
+        else {
+            itemPrice = price;
+        }
+        // 유니언타입을 사용할 때, typeof를 사용하여 코드 검증을 실행하는 것, 이것을 타입스크립트에서 타입가드라고 한다.
+    };
+    setItemPrice(50);
+}
